@@ -6,8 +6,24 @@ describe('MovieGrid', () => {
   it('renders a grid of movie posters on initial load', () => {
     // Mock movies data
     const movies = [
-      { id: 1, title: 'Movie 1', poster_path: '/poster1.jpg' },
-      { id: 2, title: 'Movie 2', poster_path: '/poster2.jpg' },
+      {
+        id: 1,
+        title: 'Movie 1',
+        original_title: 'Movie 1',
+        poster_path: '/poster1.jpg',
+        overview: '',
+        vote_average: 0,
+        release_date: '',
+      },
+      {
+        id: 2,
+        title: 'Movie 2',
+        original_title: 'Movie 2',
+        poster_path: '/poster2.jpg',
+        overview: '',
+        vote_average: 0,
+        release_date: '',
+      },
     ];
     render(<MovieGrid movies={movies} loading={false} error={null} />);
     // Check that each movie poster is rendered
@@ -17,7 +33,15 @@ describe('MovieGrid', () => {
 
   it('each poster displays an image and is clickable', () => {
     const movies = [
-      { id: 1, title: 'Movie 1', poster_path: '/poster1.jpg' },
+      {
+        id: 1,
+        title: 'Movie 1',
+        original_title: 'Movie 1',
+        poster_path: '/poster1.jpg',
+        overview: '',
+        vote_average: 0,
+        release_date: '',
+      },
     ];
     const onPosterClick = jest.fn();
     render(
