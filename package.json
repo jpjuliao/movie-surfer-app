@@ -8,7 +8,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "jest --verbose"
+    "test": "jest --verbose",
+    "test:clearCache": "jest --clearCache",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "jsdom": "^21.1.2",
