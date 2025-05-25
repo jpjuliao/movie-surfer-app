@@ -136,13 +136,6 @@ describe('movieApi service', () => {
     expect(result.current.loading).toBe(false);
   });
 
-    const { result, waitForNextUpdate } = renderHook(() => useMovies());
-
-    await waitForNextUpdate();
-
-    expect(result.current.error).toBe(mockError.message);
-  });
-
   it('should fetch movie details', async () => {
     const mockResponse = {
       id: 123,
