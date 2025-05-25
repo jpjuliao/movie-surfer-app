@@ -8,6 +8,10 @@ describe('MovieCard', () => {
     id: 1,
     title: 'Movie 1',
     poster_path: '/poster1.jpg',
+    overview: '',
+    vote_average: 0,
+    release_date: '',
+    original_title: '',
   };
 
   it('renders the movie poster image', () => {

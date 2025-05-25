@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { Movie, UseMoviesResult } from '../types/movie';
-
-const MOVIES_API_URL = 'https://api.themoviedb.org/3/movie/popular?api_key=YOUR_API_KEY';
+import movieApi from '../services/movieApi';
 
 export function useMovies(): UseMoviesResult {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -12,15 +11,10 @@ export function useMovies(): UseMoviesResult {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(MOVIES_API_URL);
-      if (!response.ok) {
-        setMovies([]);
-        setError(response.statusText);
-      } else {
-        const data = await response.json();
-        setMovies(data.results || []);
-        setError(null);
-      }
+      const api = movieApi();
+      const data = await api.getPopularMovies();
+      setMovies(data.results || []);
+      setError(null);
     } catch (err: any) {
       setMovies([]);
       setError(err.message || 'Unknown error');
