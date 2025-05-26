@@ -42,38 +42,48 @@ const Header = ({ movieTitle }: HeaderProps) => {
             w-full
           "
         >
-          <button
+          <div
             className="
-              items-center
-              text-gray-700
-              dark:text-gray-200
-              hover:text-blue-500
-              mb-2
               flex
+              items-center
+              mb-2
             "
-            onClick={() => navigate(-1)}
-            aria-label="Go back"
           >
-            <img
-              src={ArrowLeft}
-              alt="Back"
+            <button
               className="
-                w-5
-                h-5
+                flex
+                items-center
+                text-gray-700
+                dark:text-gray-200
+                hover:text-blue-500
                 mr-2
               "
-            />
-          </button>
-          <h2
-            className="
-              text-xl
-              font-semibold
-              text-gray-800
-              dark:text-gray-100
-            "
-          >
-            Movie Details
-          </h2>
+              onClick={() => navigate(-1)}
+              aria-label="Go back"
+            >
+              <img
+                src={ArrowLeft}
+                alt="Back"
+                className="
+                  w-5
+                  h-5
+                  mr-1
+                "
+              />
+              <span className="sr-only">Back</span>
+            </button>
+            <h2
+              className="
+                text-xl
+                font-semibold
+                text-gray-800
+                dark:text-gray-100
+                m-0
+              "
+            >
+              Movie Details
+            </h2>
+          </div>
           {movieTitle && (
             <h1
               className="
