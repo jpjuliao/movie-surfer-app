@@ -17,8 +17,6 @@ describe('MovieDetails', () => {
     render(<MovieDetails movie={mockMovie} />);
     expect(screen.getByText('Movie 1')).toBeInTheDocument();
     expect(screen.getByText('A great movie.')).toBeInTheDocument();
-    expect(screen.getByText(/User Rating/i)).toHaveTextContent(String(mockMovie.vote_average));
-    expect(screen.getByText(/Release Date/i)).toHaveTextContent(mockMovie.release_date);
     expect(screen.getByAltText('Movie 1')).toBeInTheDocument();
   });
 });

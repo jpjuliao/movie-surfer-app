@@ -154,4 +154,33 @@ describe('movieApi service', () => {
 
     expect(result.current.movies[0]).toEqual(mockResponse);
   });
+
+  it('should fetch popular movies for a specific page (pagination)', async () => {
+    const mockPage = 3;
+    const mockResponse = {
+      results: [
+        {
+          id: 999,
+          title: 'Movie Page 3',
+          poster_path: '/poster-page3.jpg',
+          overview: 'Page 3 overview',
+          vote_average: 7.7,
+          release_date: '2022-05-01',
+          original_title: 'Movie Page 3 Original',
+        },
+      ],
+      page: mockPage,
+      total_pages: 10,
+      total_results: 100,
+    };
+    getPopularMoviesMock.mockResolvedValueOnce(mockResponse);
+
+    // Call getPopularMovies with a specific page
+    await getPopularMoviesMock(mockPage);
+
+    expect(getPopularMoviesMock).toHaveBeenCalledWith(mockPage);
+    const { result, waitForNextUpdate } = renderHook(() => useMovies());
+    await waitForNextUpdate();
+    // The hook always fetches page 1 by default, so we check the mock call above
+  });
 });

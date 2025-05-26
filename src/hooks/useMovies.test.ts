@@ -100,4 +100,34 @@ describe('useMovies hook', () => {
 
     expect(result.current.movies).toHaveLength(0);
   });
+
+  it('should fetch movies for a specific page (pagination)', async () => {
+    const mockPage = 3;
+    const mockPageResponse = {
+      results: [
+        {
+          id: 3,
+          original_title: 'The Prestige',
+          poster_path: '/prestige.jpg',
+          overview: 'Two magicians engage in a battle to create the ultimate illusion.',
+          vote_average: 8.5,
+          release_date: '2006-10-20',
+        },
+      ],
+    };
+
+    (fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => mockPageResponse,
+    });
+
+    const { result, waitForNextUpdate } = renderHook(() => useMovies(mockPage));
+
+    await waitForNextUpdate();
+
+    expect(result.current.loading).toBe(false);
+    expect(result.current.error).toBeNull();
+    expect(result.current.movies).toHaveLength(1);
+    expect(result.current.movies[0].original_title).toBe('The Prestige');
+  });
 });

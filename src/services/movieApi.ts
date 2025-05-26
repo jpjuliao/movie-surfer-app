@@ -4,8 +4,8 @@ const movieApi = () => {
   const API_KEY = getTmdbApiKey();
   const BASE_URL = 'https://api.themoviedb.org/3';
 
-  const getPopularMovies = async () => {
-    const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`);
+  const getPopularMovies = async (page: number = 1) => {
+    const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}&page=${page}`);
     if (!response.ok) {
       throw new Error('Failed to fetch popular movies');
     }

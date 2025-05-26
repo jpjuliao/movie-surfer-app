@@ -1,8 +1,8 @@
+import { memo } from "react";
 import type { MovieGridProps, Movie } from "../types/movie";
-import React from "react";
 import { getTmdbImageUrl } from "../utils/imageUrl";
 
-const MovieGrid = React.memo((movies: MovieGridProps) => {
+const MovieGrid = memo((movies: MovieGridProps) => {
   if (movies.error) {
     return <p>Error: {movies.error}</p>;
   }

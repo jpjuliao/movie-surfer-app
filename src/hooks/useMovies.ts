@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import type { Movie, UseMoviesResult } from '../types/movie';
 import movieApi from '../services/movieApi';
 
-export function useMovies(): UseMoviesResult {
+export function useMovies(page: number = 1): UseMoviesResult {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -12,7 +12,7 @@ export function useMovies(): UseMoviesResult {
     setError(null);
     try {
       const api = movieApi();
-      const data = await api.getPopularMovies();
+      const data = await api.getPopularMovies(page);
       setMovies(data.results || []);
       setError(null);
     } catch (err: any) {
@@ -21,7 +21,7 @@ export function useMovies(): UseMoviesResult {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [page]);
 
   useEffect(() => {
     fetchMovies();
