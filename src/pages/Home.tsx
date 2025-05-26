@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import MovieGrid from '../components/MovieGrid';
 import { useMovies } from '../hooks/useMovies';
 import { useNavigate } from 'react-router-dom';
@@ -7,9 +8,9 @@ const Home = () => {
   const { movies, loading, error } = useMovies();
   const navigate = useNavigate();
 
-  const handlePosterClick = (id: number) => {
+  const handlePosterClick = useCallback((id: number) => {
     navigate(`/movie/${id}`);
-  };
+  }, [navigate]);
 
   return (
     <div data-testid="home-page">

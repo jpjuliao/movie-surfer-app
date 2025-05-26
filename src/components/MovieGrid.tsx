@@ -1,6 +1,7 @@
 import type { MovieGridProps, Movie } from "../types/movie";
+import React from "react";
 
-const MovieGrid = (movies: MovieGridProps) => {
+const MovieGrid = React.memo((movies: MovieGridProps) => {
   if (movies.error) {
     return <p>Error: {movies.error}</p>;
   }
@@ -56,6 +57,6 @@ const MovieGrid = (movies: MovieGridProps) => {
       ))}
     </div>
   );
-};
+});
 
 export default MovieGrid;
