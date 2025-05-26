@@ -5,7 +5,7 @@ import MoviePage from './pages/MoviePage';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/movie-surfer-app/">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/movie/:id" element={<MoviePage />} />
