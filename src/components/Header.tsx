@@ -95,6 +95,7 @@ const Header = ({ movieTitle }: HeaderProps) => {
                 text-2xl
                 font-bold
                 p-5
+                text-white
               "
               style={{
                 backgroundColor: "#746A64",
