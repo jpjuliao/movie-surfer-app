@@ -29,7 +29,7 @@ const MoviePage = () => {
   }, [id]);
 
   return (
-    <div data-testid="movie-page" className="flex flex-col items-center w-screen">
+    <div data-testid="movie-page" className="flex flex-col items-center">
       <Header movieTitle={movie?.title} />
       {loading && <p>Loading...</p>}
       {error && <p className="text-red-500">{error}</p>}

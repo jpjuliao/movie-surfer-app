@@ -13,7 +13,7 @@ const Home = () => {
   }, [navigate]);
 
   return (
-    <div data-testid="home-page" className="w-screen min-h-screen">
+    <div data-testid="home-page">
       <Header />
       <MovieGrid
         movies={movies}
