@@ -5,13 +5,9 @@ const MovieDetails = ({ movie }: { movie: Movie }) => {
   return (
     <div
       className="
-        max-w-md
-        w-full
+        w-screen
         bg-white
-        dark:bg-gray-900
-        rounded-lg
-        shadow-lg
-        p-4
+        p-5
       "
     >
       <img
@@ -48,8 +44,6 @@ const MovieDetails = ({ movie }: { movie: Movie }) => {
           flex
           flex-col
           gap-1
-          text-gray-800
-          dark:text-gray-200
         "
       >
         <span>

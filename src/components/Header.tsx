@@ -14,23 +14,23 @@ const Header = ({ movieTitle }: HeaderProps) => {
   return (
     <header
       className="
-        w-full
-        px-4
-        py-3
         flex
-        bg-white
-        dark:bg-gray-900
-        shadow
+        w-full
       "
     >
       {isHome ? (
         <h1
           className="
-            text-3xl
             font-bold
             text-gray-900
             dark:text-white
+            px-5
+            py-5
           "
+          style={{
+            fontSize: "1.25rem",      // 20px
+            lineHeight: "1.5rem",     // 24px
+          }}
         >
           Pop Movies
         </h1>
@@ -46,17 +46,15 @@ const Header = ({ movieTitle }: HeaderProps) => {
             className="
               flex
               items-center
-              mb-2
             "
           >
             <button
               className="
                 flex
                 items-center
-                text-gray-700
-                dark:text-gray-200
                 hover:text-blue-500
-                mr-2
+                px-5
+                py-5
               "
               onClick={() => navigate(-1)}
               aria-label="Go back"
@@ -67,7 +65,6 @@ const Header = ({ movieTitle }: HeaderProps) => {
                 className="
                   w-5
                   h-5
-                  mr-1
                 "
               />
               <span className="sr-only">Back</span>
@@ -79,7 +76,15 @@ const Header = ({ movieTitle }: HeaderProps) => {
                 text-gray-800
                 dark:text-gray-100
                 m-0
+                pr-5
+                py-5
               "
+              style={{
+                fontSize: "1.25rem",      // 20px
+                lineHeight: "1.5rem",     // 24px
+                fontWeight: 700,
+                fontFamily: "'Roboto', system-ui, Avenir, Helvetica, Arial, sans-serif"
+              }}
             >
               Movie Details
             </h2>
@@ -89,10 +94,14 @@ const Header = ({ movieTitle }: HeaderProps) => {
               className="
                 text-2xl
                 font-bold
-                text-gray-900
-                dark:text-white
-                mt-1
+                p-5
               "
+              style={{
+                backgroundColor: "#746A64",
+                fontSize: "1.25rem",      // 20px
+                lineHeight: "1.5rem",     // 24px
+                fontWeight: 500,
+              }}
             >
               {movieTitle}
             </h1>
