@@ -179,7 +179,7 @@ describe('movieApi service', () => {
     await getPopularMoviesMock(mockPage);
 
     expect(getPopularMoviesMock).toHaveBeenCalledWith(mockPage);
-    const { result, waitForNextUpdate } = renderHook(() => useMovies());
+    const { waitForNextUpdate } = renderHook(() => useMovies());
     await waitForNextUpdate();
     // The hook always fetches page 1 by default, so we check the mock call above
   });
