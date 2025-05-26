@@ -1,14 +1,11 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { render, screen } from '@testing-library/react';
 import MovieDetails from './MovieDetails';
-import movieApi from '../services/movieApi';
 import '@testing-library/jest-dom';
-
-jest.mock('../services/movieApi');
 
 const mockMovie = {
   id: 1,
   original_title: 'Movie 1',
+  title: 'Movie 1',
   poster_path: '/poster1.jpg',
   overview: 'A great movie.',
   vote_average: 8.5,
@@ -16,22 +13,8 @@ const mockMovie = {
 };
 
 describe('MovieDetails', () => {
-  it('renders movie details after fetch', async () => {
-    // Mock the movieApi instance and its getMovieDetails method
-    (movieApi as jest.Mock).mockReturnValue({
-      getMovieDetails: jest.fn().mockResolvedValueOnce(mockMovie),
-    });
-
-    render(
-      <MemoryRouter initialEntries={['/movie/1']}>
-        <Routes>
-          <Route path="/movie/:id" element={<MovieDetails />} />
-        </Routes>
-      </MemoryRouter>
-    );
-
-    // Wait for the movie title to appear, indicating data has loaded
-    await screen.findByText('Movie 1');
+  it('renders movie details', () => {
+    render(<MovieDetails movie={mockMovie} />);
     expect(screen.getByText('Movie 1')).toBeInTheDocument();
     expect(screen.getByText('A great movie.')).toBeInTheDocument();
     expect(screen.getByText(/User Rating/i)).toHaveTextContent(String(mockMovie.vote_average));

@@ -44,12 +44,12 @@ const Header = ({ movieTitle }: HeaderProps) => {
         >
           <button
             className="
-              flex
               items-center
               text-gray-700
               dark:text-gray-200
               hover:text-blue-500
               mb-2
+              flex
             "
             onClick={() => navigate(-1)}
             aria-label="Go back"
@@ -63,7 +63,6 @@ const Header = ({ movieTitle }: HeaderProps) => {
                 mr-2
               "
             />
-            Back
           </button>
           <h2
             className="
