@@ -1,5 +1,6 @@
 import type { MovieGridProps, Movie } from "../types/movie";
 import React from "react";
+import { getTmdbImageUrl } from "../utils/imageUrl";
 
 const MovieGrid = React.memo((movies: MovieGridProps) => {
   if (movies.error) {
@@ -36,7 +37,7 @@ const MovieGrid = React.memo((movies: MovieGridProps) => {
           onClick={() => handlePosterClick(movie.id)}
         >
           <img
-            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            src={getTmdbImageUrl(movie.poster_path)}
             alt={movie.title}
             className="w-full aspect-[2/3] object-cover"
           />

@@ -1,4 +1,5 @@
 import type { Movie } from "../types/movie";
+import { getTmdbImageUrl } from "../utils/imageUrl";
 
 const MovieDetails = ({ movie }: { movie: Movie }) => {
   return (
@@ -14,7 +15,7 @@ const MovieDetails = ({ movie }: { movie: Movie }) => {
       "
     >
       <img
-        src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
+        src={getTmdbImageUrl(movie.poster_path, "w342")}
         alt={movie.title}
         className="
           w-full
