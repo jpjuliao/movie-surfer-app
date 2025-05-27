@@ -1,4 +1,4 @@
-import { renderHook, act, waitFor } from '@testing-library/react';
+import { renderHook, waitFor } from '@testing-library/react';
 import { useMovies } from '../hooks/useMovies';
 import movieApi from './movieApi';
 
