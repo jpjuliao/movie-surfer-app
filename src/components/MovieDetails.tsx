@@ -2,6 +2,8 @@ import type { Movie } from "../types/movie";
 import { getTmdbImageUrl } from "../utils/imageUrl";
 
 const MovieDetails = ({ movie }: { movie: Movie }) => {
+  const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : '';
+
   return (
     <div
       className="
@@ -18,24 +20,22 @@ const MovieDetails = ({ movie }: { movie: Movie }) => {
         className="
           flex
           flex-col
-          md:flex-row
+          flex-row
           gap-6
-          items-start
           justify-center
           w-full
           max-w-4xl
+          items-stretch
         "
       >
         <img
           src={getTmdbImageUrl(movie.poster_path, "w342")}
           alt={movie.title}
           className="
-            w-full
             max-w-xs
             rounded-md
-            mb-4
-            md:mb-0
-            md:w-[220px]
+            w-[160px]
+            sm:w-[220px]
             md:h-auto
             object-cover
             flex-shrink-0
@@ -43,28 +43,31 @@ const MovieDetails = ({ movie }: { movie: Movie }) => {
         />
         <div
           className="
-            flex-1
-            flex
-            flex-col
-            justify-start
-          "
-        >
-          <div
-            className="
               flex
               flex-col
+              flex-1
               gap-1
+              text-[#212121]
+              justify-between
             "
-          >
-            <span>
-              <strong>User Rating:</strong> {movie.vote_average}
-            </span>
-            <span>
-              <strong>Release Date:</strong> {movie.release_date}
-            </span>
-            <span>
-              <strong>Original Title:</strong> {movie.original_title}
-            </span>
+        >
+          <div>
+            <h3>{releaseYear}</h3>
+            <div className="mb-6">
+              <i>
+                {movie.runtime} min
+              </i>
+            </div>
+          </div>
+          <div>
+            <div className="mb-2">
+              <strong>
+                {movie.vote_average} / 10
+              </strong>
+            </div>
+            <div>
+              <button type="button" className="bg-[#746A64] text-white p-5" style={{ borderRadius: ".125rem", fontSize: "1rem" }}>Add to Favorite</button>
+            </div>
           </div>
         </div>
       </div>
@@ -81,6 +84,17 @@ const MovieDetails = ({ movie }: { movie: Movie }) => {
         <p>
           {movie.overview}
         </p>
+        <div
+          className="
+          w-full
+          mt-5
+        "
+        >
+          <h2 style={{ fontSize: ".9rem" }} className="mb-2">
+            TRAILERS
+          </h2>
+          <hr style={{ color: "#DEDEDE" }} />
+        </div>
       </div>
     </div>
   );

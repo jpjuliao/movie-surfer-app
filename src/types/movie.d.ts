@@ -1,4 +1,5 @@
 export type Movie = {
+  [x: string]: ReactNode;
   id: number;
   title: string;
   original_title: string;
@@ -6,6 +7,7 @@ export type Movie = {
   overview: string;
   vote_average: number;
   release_date: string;
+  runtime?: number;
 };
 
 export type UseMoviesResult = {

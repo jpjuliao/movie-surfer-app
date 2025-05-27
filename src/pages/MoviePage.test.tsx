@@ -2,6 +2,8 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import MoviePage from './MoviePage';
 
+jest.mock('../assets/arrow-left.svg', () => 'ArrowLeft');
+
 describe('MoviePage', () => {
   it('renders without crashing', () => {
     render(<MoviePage />);
