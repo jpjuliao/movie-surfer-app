@@ -1,15 +1,25 @@
 import { render, screen } from '@testing-library/react';
 import Home from './Home';
 import '@testing-library/jest-dom';
+import { MemoryRouter } from 'react-router-dom';
+import '../types/global.d.ts';
 
 describe('Home', () => {
   it('renders without crashing', () => {
-    render(<Home />);
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>
+    );
     expect(screen.getByTestId('home-page')).toBeInTheDocument();
   });
 
   it('displays loading state initially', () => {
-    render(<Home />);
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>
+    );
     expect(screen.getByText(/loading/i)).toBeInTheDocument();
   });
 

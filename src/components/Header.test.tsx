@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter, useNavigate } from 'react-router-dom';
 import Header from './Header';
+import '../types/global.d.ts';
 
 jest.mock('react-router-dom', () => {
   const actual = jest.requireActual('react-router-dom');

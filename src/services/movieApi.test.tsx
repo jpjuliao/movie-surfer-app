@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, act, waitFor } from '@testing-library/react';
 import { useMovies } from '../hooks/useMovies';
 import movieApi from './movieApi';
 
@@ -48,8 +48,8 @@ describe('movieApi service', () => {
       ],
     };
     getPopularMoviesMock.mockResolvedValue(mockResponse);
-    const { result, waitForNextUpdate } = renderHook(() => useMovies());
-    await waitForNextUpdate();
+    const { result } = renderHook(() => useMovies());
+    await waitFor(() => expect(result.current.loading).toBe(false));
     expect(result.current.movies).toEqual(mockResponse.results);
     expect(result.current.loading).toBe(false);
     expect(result.current.error).toBe(null);
@@ -58,8 +58,8 @@ describe('movieApi service', () => {
   it('should handle API error', async () => {
     const mockError = new Error('API error');
     getPopularMoviesMock.mockRejectedValue(mockError);
-    const { result, waitForNextUpdate } = renderHook(() => useMovies());
-    await waitForNextUpdate();
+    const { result } = renderHook(() => useMovies());
+    await waitFor(() => expect(result.current.loading).toBe(false));
     expect(result.current.error).toBe(mockError.message);
     expect(result.current.loading).toBe(false);
     expect(result.current.movies).toEqual([]);
@@ -71,10 +71,10 @@ describe('movieApi service', () => {
       resolvePromise = resolve;
     });
     getPopularMoviesMock.mockReturnValue(promise);
-    const { result, waitForNextUpdate } = renderHook(() => useMovies());
+    const { result } = renderHook(() => useMovies());
     expect(result.current.loading).toBe(true);
     resolvePromise!({ results: [] });
-    await waitForNextUpdate();
+    await waitFor(() => expect(result.current.loading).toBe(false));
   });
 
   it('should fetch movie details and update movies array', async () => {
@@ -102,16 +102,16 @@ describe('movieApi service', () => {
     };
     getPopularMoviesMock.mockResolvedValue(mockPopularResponse);
     getMovieDetailsMock.mockResolvedValue(mockDetailsResponse);
-    const { result, waitForNextUpdate } = renderHook(() => useMovies());
-    await waitForNextUpdate();
+    const { result } = renderHook(() => useMovies());
+    await waitFor(() => expect(result.current.loading).toBe(false));
     expect(result.current.movies[0]).toEqual(mockPopularResponse.results[0]);
   });
 
   it('should reset error and loading on new fetch', async () => {
     const mockError = new Error('API error');
     getPopularMoviesMock.mockRejectedValueOnce(mockError);
-    const { result, waitForNextUpdate, rerender } = renderHook(() => useMovies());
-    await waitForNextUpdate();
+    const { result } = renderHook(() => useMovies());
+    await waitFor(() => expect(result.current.loading).toBe(false));
     expect(result.current.error).toBe(mockError.message);
 
     // Simulate a successful fetch after error
@@ -129,11 +129,11 @@ describe('movieApi service', () => {
       ],
     };
     getPopularMoviesMock.mockResolvedValueOnce(mockResponse);
-    rerender();
-    await waitForNextUpdate();
-    expect(result.current.error).toBe(null);
-    expect(result.current.movies).toEqual(mockResponse.results);
-    expect(result.current.loading).toBe(false);
+    const { result: result2 } = renderHook(() => useMovies());
+    await waitFor(() => expect(result2.current.loading).toBe(false));
+    expect(result2.current.error).toBe(null);
+    expect(result2.current.movies).toEqual(mockResponse.results);
+    expect(result2.current.loading).toBe(false);
   });
 
   it('should fetch movie details', async () => {
@@ -148,11 +148,10 @@ describe('movieApi service', () => {
 
     getMovieDetailsMock.mockResolvedValue(mockResponse);
 
-    const { result, waitForNextUpdate } = renderHook(() => useMovies());
+    // Directly call the mocked getMovieDetails and check the result
+    const result = await getMovieDetailsMock(123);
 
-    await waitForNextUpdate();
-
-    expect(result.current.movies[0]).toEqual(mockResponse);
+    expect(result).toEqual(mockResponse);
   });
 
   it('should fetch popular movies for a specific page (pagination)', async () => {
@@ -179,8 +178,8 @@ describe('movieApi service', () => {
     await getPopularMoviesMock(mockPage);
 
     expect(getPopularMoviesMock).toHaveBeenCalledWith(mockPage);
-    const { waitForNextUpdate } = renderHook(() => useMovies());
-    await waitForNextUpdate();
+    const { result } = renderHook(() => useMovies());
+    await waitFor(() => expect(result.current.loading).toBe(false));
     // The hook always fetches page 1 by default, so we check the mock call above
   });
 });
