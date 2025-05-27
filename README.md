@@ -85,6 +85,52 @@ npx cypress open
   - `styles/` – Tailwind and global CSS
   - `types/` – TypeScript type definitions
 
+## Architecture
+
+```mermaid
+flowchart TD
+  subgraph Pages
+    HomePage[HomePage]
+    MoviePage[MoviePage]
+  end
+
+  subgraph UI_Components["UI Components"]
+    Header[Header]
+    MovieGrid[MovieGrid]
+    MovieDetails[MovieDetails]
+    Pagination[Pagination]
+  end
+
+  subgraph Hooks
+    useMovies[useMovies]
+  end
+
+  subgraph Services
+    movieApi[movieApi]
+  end
+
+  subgraph Utils
+    imageUrlBuilder[imageUrlBuilder]
+    env[env.ts]
+  end
+
+  HomePage --> Header
+  HomePage --> MovieGrid
+  HomePage --> Pagination
+  HomePage --> useMovies
+
+  MoviePage --> Header
+  MoviePage --> MovieDetails
+  MoviePage --> useMovies
+
+  useMovies --> movieApi
+
+  movieApi --> env
+
+  MovieGrid --> imageUrlBuilder
+  MovieDetails --> imageUrlBuilder
+```
+
 ---
 
 ## Notes
@@ -100,3 +146,5 @@ npx cypress open
 
 This project is for educational/non-commercial use only.  
 See [The Movie Database API Terms of Use](https://www.themoviedb.org/documentation/api/terms-of-use) for API usage restrictions.
+
+---
