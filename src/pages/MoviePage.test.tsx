@@ -3,22 +3,28 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import MoviePage from './MoviePage';
 import '../types/global.d.ts';
+import store from '../store/store';
+import { Provider } from 'react-redux';
 
 describe('MoviePage', () => {
   it('renders loading state with router', () => {
     render(
-      <MemoryRouter>
-        <MoviePage />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter>
+          <MoviePage />
+        </MemoryRouter>
+      </Provider>
     );
     expect(screen.getByText(/loading/i)).toBeInTheDocument();
   });
 
   it('displays loading state initially', () => {
     render(
-      <MemoryRouter>
-        <MoviePage />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter>
+          <MoviePage />
+        </MemoryRouter>
+      </Provider>
     );
     expect(screen.getByText(/loading/i)).toBeInTheDocument();
   });

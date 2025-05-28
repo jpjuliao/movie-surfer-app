@@ -1,32 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import movieApi from "../services/movieApi";
+import { useSelector, useDispatch } from 'react-redux';
 import MovieDetails from "../components/MovieDetails";
 import Header from "../components/Header";
-import type { Movie } from "../types/movie";
+import type { RootState, AppDispatch } from '../store/store';
+import { fetchMovieDetails } from '../store/reducers/movieDetailsSlice';
 
 const MoviePage = () => {
   const { id } = useParams<{ id: string }>();
-  const [movie, setMovie] = useState<Movie | null>(null);
-  const [loading, setLoading] = useState(true); 
-  const [error, setError] = useState<string | null>(null);
+  const dispatch = useDispatch<AppDispatch>();
+  const movie = useSelector((state: RootState) => state.movieDetails.movie);
+  const loading = useSelector((state: RootState) => state.movieDetails.loading);
+  const error = useSelector((state: RootState) => state.movieDetails.error);
 
   useEffect(() => {
-    const fetchMovie = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const api = movieApi();
-        const data = await api.getMovieDetails(Number(id));
-        setMovie(data);
-      } catch (err: any) {
-        setError(err.message || "Failed to fetch movie details");
-      } finally {
-        setLoading(false);
-      }
-    };
-    if (id) fetchMovie();
-  }, [id]);
+    if (id) {
+      dispatch(fetchMovieDetails(Number(id)));
+    }
+  }, [id, dispatch]);
 
   return (
     <div data-testid="movie-page" className="flex flex-col items-center">
