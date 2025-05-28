@@ -3,22 +3,28 @@ import Home from './Home';
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
 import '../types/global.d.ts';
+import store from '../store/store';
+import { Provider } from 'react-redux';
 
 describe('Home', () => {
   it('renders without crashing', () => {
     render(
-      <MemoryRouter>
-        <Home />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter>
+          <Home />
+        </MemoryRouter>
+      </Provider>
     );
     expect(screen.getByTestId('home-page')).toBeInTheDocument();
   });
 
   it('displays loading state initially', () => {
     render(
-      <MemoryRouter>
-        <Home />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter>
+          <Home />
+        </MemoryRouter>
+      </Provider>
     );
     expect(screen.getByText(/loading/i)).toBeInTheDocument();
   });

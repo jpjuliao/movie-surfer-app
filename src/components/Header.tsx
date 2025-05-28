@@ -10,6 +10,7 @@ const Header = ({ movieTitle }: HeaderProps) => {
   const navigate = useNavigate();
 
   const isHome = location.pathname === "/";
+  const isPagination = location.pathname.includes("/page/");
 
   return (
     <header
@@ -18,7 +19,7 @@ const Header = ({ movieTitle }: HeaderProps) => {
         w-full
       "
     >
-      {isHome ? (
+      {isHome || isPagination ? (
         <h1
           className="
             font-bold

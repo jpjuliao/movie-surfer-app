@@ -11,13 +11,18 @@
     "test": "jest",
     "test:verbose": "jest --verbose",
     "test:clearCache": "jest --clearCache",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "e2e": "cypress open",
+    "e2e:run": "cypress run"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.8.2",
     "@tailwindcss/vite": "^4.1.7",
     "jsdom": "^21.1.2",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "react-redux": "^9.2.0",
+    "redux": "^5.0.1"
   },
   "devDependencies": {
     "@emotion/react": "^11.14.0",
@@ -29,18 +34,16 @@
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
-    "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^29.5.14",
-    "@types/node": "^22.15.21",
+    "@types/node": "^22.15.23",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@types/testing-library__react": "^10.2.0",
-    "@types/testing-library__react-hooks": "^4.0.0",
     "@vitejs/plugin-react": "^4.4.1",
     "autoprefixer": "^10.4.21",
     "axios": "^1.9.0",
-    "cypress": "^4.12.1",
+    "cypress": "^14.4.0",
     "cypress-image-snapshot": "^4.0.1",
     "dotenv": "^16.5.0",
     "eslint": "^9.25.0",

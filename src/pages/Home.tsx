@@ -1,23 +1,37 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import MovieGrid from '../components/MovieGrid';
-import { useMovies } from '../hooks/useMovies';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchPopularMovies } from '../store/reducers/movieSlice';
+import { setPage } from '../store/reducers/paginationSlice';
 import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Pagination from '../components/Pagination';
+import type { RootState, AppDispatch } from '../store/store';
 
 const Home = () => {
   const params = useParams<{ pageNumber?: string }>();
-  const initialPage = params.pageNumber ? parseInt(params.pageNumber, 10) : 1;
-  const [page, setPage] = useState(initialPage);
-  const { movies, loading, error } = useMovies(page);
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+
+  const page = useSelector((state: RootState) => state.pagination.page);
+  const movies = useSelector((state: RootState) => state.movies.movies);
+  const loading = useSelector((state: RootState) => state.movies.loading);
+  const error = useSelector((state: RootState) => state.movies.error);
 
   // Sync state with URL if user navigates directly to /page/:pageNumber
   useEffect(() => {
     const urlPage = params.pageNumber ? parseInt(params.pageNumber, 10) : 1;
-    if (urlPage !== page) setPage(urlPage);
+    if (urlPage !== page) {
+      dispatch(setPage(urlPage));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.pageNumber]);
+
+  // Fetch movies when page changes
+  useEffect(() => {
+    dispatch(fetchPopularMovies(page));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
 
   // Update URL when page changes
   useEffect(() => {
@@ -37,17 +51,17 @@ const Home = () => {
   }, [navigate]);
 
   const handlePrev = () => {
-    setPage((p) => Math.max(1, p - 1));
+    dispatch(setPage(Math.max(1, page - 1)));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleNext = () => {
-    setPage((p) => p + 1);
+    dispatch(setPage(page + 1));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleFirst = () => {
-    setPage(1);
+    dispatch(setPage(1));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -60,14 +74,16 @@ const Home = () => {
         error={error}
         onPosterClick={handlePosterClick}
       />
-      <Pagination
-        page={page}
-        onPrev={handlePrev}
-        onNext={handleNext}
-        onFirst={handleFirst}
-        disablePrev={page === 1}
-        disableFirst={page === 1}
-      />
+      {movies.length > 0 && (
+        <Pagination
+          page={page}
+          onPrev={handlePrev}
+          onNext={handleNext}
+          onFirst={handleFirst}
+          disablePrev={page === 1}
+          disableFirst={page === 1}
+        />
+      )}
     </div>
   );
 }
