@@ -3,13 +3,19 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import MoviePage from './MoviePage';
 import '../types/global.d.ts';
-import store from '../store/store';
 import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import movieDetailsReducer from '../store/reducers/movieDetailsSlice';
+
+const mockStore = configureStore({
+  reducer: { movieDetails: movieDetailsReducer },
+  preloadedState: { movieDetails: { movie: null, loading: true, error: null } }
+});
 
 describe('MoviePage', () => {
   it('renders loading state with router', () => {
     render(
-      <Provider store={store}>
+      <Provider store={mockStore}>
         <MemoryRouter>
           <MoviePage />
         </MemoryRouter>
@@ -20,7 +26,7 @@ describe('MoviePage', () => {
 
   it('displays loading state initially', () => {
     render(
-      <Provider store={store}>
+      <Provider store={mockStore}>
         <MemoryRouter>
           <MoviePage />
         </MemoryRouter>
