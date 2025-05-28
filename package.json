@@ -16,6 +16,7 @@
     "e2e:run": "cypress run"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.8.2",
     "@tailwindcss/vite": "^4.1.7",
     "jsdom": "^21.1.2",
     "react": "^19.1.0",
