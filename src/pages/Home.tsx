@@ -60,14 +60,16 @@ const Home = () => {
         error={error}
         onPosterClick={handlePosterClick}
       />
-      <Pagination
-        page={page}
-        onPrev={handlePrev}
-        onNext={handleNext}
-        onFirst={handleFirst}
-        disablePrev={page === 1}
-        disableFirst={page === 1}
-      />
+      {movies.length > 0 && (
+        <Pagination
+          page={page}
+          onPrev={handlePrev}
+          onNext={handleNext}
+          onFirst={handleFirst}
+          disablePrev={page === 1}
+          disableFirst={page === 1}
+        />
+      )}
     </div>
   );
 }
